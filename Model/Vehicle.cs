@@ -1,6 +1,6 @@
 namespace VehicleAPI.Model;
 
-public class Vehicle_csproj
+public class Vehicle
 {
     
 }
