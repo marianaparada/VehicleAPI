@@ -26,4 +26,45 @@ public class VehiclesController : ControllerBase
 
         return Ok(result.ToList());
     }
+    // GET api/vehicles/{id}
+    [HttpGet("{id:guid}")]
+    public ActionResult<Vehicle> GetById(Guid id)
+    {
+        var vehicle = Data.FirstOrDefault(v => v.Id == id);
+        if (vehicle == null) return NotFound();
+        return Ok(vehicle);
+    }
+
+    // POST api/vehicles
+    [HttpPost]
+    public ActionResult<Vehicle> Create(Vehicle vehicle)
+    {
+        Data.Add(vehicle);
+        return CreatedAtAction(nameof(GetById), new { id = vehicle.Id }, vehicle);
+    }
+
+    // PUT api/vehicles/{id}
+    [HttpPut("{id:guid}")]
+    public IActionResult Replace(Guid id, Vehicle vehicle)
+    {
+        var existing = Data.FirstOrDefault(v => v.Id == id);
+        if (existing == null) return NotFound();
+
+        existing.Make = vehicle.Make;
+        existing.Model = vehicle.Model;
+        existing.Year = vehicle.Year;
+
+        return NoContent();
+    }
+
+    // DELETE api/vehicles/{id}
+    [HttpDelete("{id:guid}")]
+    public IActionResult Delete(Guid id)
+    {
+        var existing = Data.FirstOrDefault(v => v.Id == id);
+        if (existing == null) return NotFound();
+
+        Data.Remove(existing);
+        return NoContent();
+    }
 }
