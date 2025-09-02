@@ -10,7 +10,7 @@ public class VehiclesController : ControllerBase
     private static readonly List<Vehicle> Data = [];
 
     [HttpGet]
-    public IActionResult<IEnumerable<Vehicle>> Get(string? make, int? year)
+    public ActionResult<IEnumerable<Vehicle>> Get(string? make, int? year)
     {
         var result = Data.AsEnumerable();
         if (!string.IsNullOrWhiteSpace(make))
